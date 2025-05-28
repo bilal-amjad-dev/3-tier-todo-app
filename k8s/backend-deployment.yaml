@@ -1,4 +1,3 @@
-# backend-deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -24,7 +23,7 @@ spec:
     spec:
       containers:
       - name: api
-        image: bilalamjaddev/three-tier-backend:latest  # Replace with your Docker Hub username
+        image: bilalamjaddev/three-tier-backend:latest
         imagePullPolicy: Always
         env:
           - name: MONGO_CONN_STR
@@ -39,6 +38,8 @@ spec:
               secretKeyRef:
                 name: mongo-sec
                 key: password
+          - name: USE_DB_AUTH
+            value: "true"  # Add this to enable authentication
         ports:
         - containerPort: 8080
         livenessProbe:
